@@ -1,0 +1,30 @@
+import qrcode
+import cv2
+
+print("1. Encode QR Code")
+print("2. Decode QR Code")
+
+choice = int(input("Enter your choice: "))
+
+if choice == 1:
+    text = input("Enter text or URL: ")
+
+    qr = qrcode.make(text)
+    qr.save("myqr.png")
+
+    print("QR Code generated successfully!")
+    print("Saved as myqr.png")
+
+elif choice == 2:
+    image = cv2.imread("myqr.png")
+
+    detector = cv2.QRCodeDetector()
+    data, points, _ = detector.detectAndDecode(image)
+
+    if data:
+        print("Decoded Data:", data)
+    else:
+        print("QR Code not detected.")
+
+else:
+    print("Invalid choice!")
