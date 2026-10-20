@@ -1,0 +1,164 @@
+
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>QR Code Studio</title>
+
+    <style>
+        * {
+            box-sizing: border-box;
+        }
+
+        body {
+            margin: 0;
+            font-family: Arial, sans-serif;
+            background: #f4f5fb;
+            color: #20243a;
+        }
+
+        header {
+            text-align: center;
+            padding: 35px 15px;
+            background: #5146d8;
+            color: white;
+        }
+
+        header h1 {
+            margin: 0 0 10px;
+        }
+
+        main {
+            max-width: 850px;
+            margin: 30px auto;
+            padding: 15px;
+        }
+
+        .cards {
+            display: grid;
+            grid-template-columns: repeat(auto-fit, minmax(260px, 1fr));
+            gap: 20px;
+        }
+
+        .card {
+            background: white;
+            padding: 25px;
+            border-radius: 16px;
+            box-shadow: 0 5px 20px #20243a12;
+        }
+
+        h2 {
+            color: #5146d8;
+        }
+
+        input, textarea, button {
+            width: 100%;
+            padding: 12px;
+            margin-top: 12px;
+            border-radius: 8px;
+            font-size: 15px;
+        }
+
+        input, textarea {
+            border: 1px solid #d5d7e5;
+        }
+
+        textarea {
+            resize: vertical;
+            min-height: 100px;
+        }
+
+        button {
+            border: none;
+            background: #5146d8;
+            color: white;
+            cursor: pointer;
+            font-weight: bold;
+        }
+
+        button:hover {
+            background: #3e34b6;
+        }
+
+        .message {
+            background: white;
+            padding: 18px;
+            border-radius: 12px;
+            margin-top: 20px;
+            overflow-wrap: anywhere;
+        }
+
+        .error {
+            color: #b42318;
+        }
+
+        footer {
+            text-align: center;
+            padding: 25px;
+            color: #666;
+        }
+    </style>
+</head>
+
+<body>
+    <header>
+        <h1>QR Code Studio</h1>
+        <p>Generate and decode QR codes in seconds.</p>
+    </header>
+
+    <main>
+        <div class="cards">
+
+            <section class="card">
+                <h2>Generate QR Code</h2>
+                <p>Convert your text or URL into a QR image.</p>
+
+                <form method="POST">
+                    <textarea name="text"
+                        placeholder="Enter text or URL"></textarea>
+
+                    <button type="submit" name="action"
+                        value="encode">
+                        Generate & Download QR
+                    </button>
+                </form>
+            </section>
+
+            <section class="card">
+                <h2>Decode QR Code</h2>
+                <p>Upload an image to read its QR code.</p>
+
+                <form method="POST" enctype="multipart/form-data">
+                    <input type="file" name="qrfile"
+                        accept="image/png,image/jpeg,image/webp"
+                        required>
+
+                    <button type="submit" name="action"
+                        value="decode">
+                        Decode QR Image
+                    </button>
+                </form>
+            </section>
+
+        </div>
+
+        {% if result %}
+        <div class="message">
+            <h3>Decoded successfully!</h3>
+            <p>{{ result }}</p>
+        </div>
+        {% endif %}
+
+        {% if error %}
+        <div class="message error">
+            <strong>{{ error }}</strong>
+        </div>
+        {% endif %}
+    </main>
+
+    <footer>
+        QR Code Studio | Python, Flask & OpenCV
+    </footer>
+</body>
+</html>
