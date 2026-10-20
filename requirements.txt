@@ -1,0 +1,5 @@
+
+Flask
+qrcode[pil]
+opencv-python-headless
+gunicorn
